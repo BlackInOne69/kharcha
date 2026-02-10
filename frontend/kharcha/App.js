@@ -36,126 +36,55 @@ SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Updated to match the HTML mockup design
-function MainTabs() {
-    const { colors } = useContext(ThemeContext);
+import CustomTabBar from './src/components/CustomTabBar';
 
+function MainTabs() {
     return (
         <Tab.Navigator
+            tabBar={props => <CustomTabBar {...props} />}
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: {
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    backgroundColor: 'rgba(24, 24, 27, 0.95)', // background-dark with 95% opacity
-                    borderTopColor: 'rgba(255, 255, 255, 0.05)',
-                    borderTopWidth: 1,
-                    height: 88, // 5.5rem equivalent
-                    paddingBottom: 10,
-                    paddingTop: 8,
-                    elevation: 0,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: -5 },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 20,
-                },
-                tabBarActiveTintColor: '#2DD4BF', // accent color
-                tabBarInactiveTintColor: '#A1A1AA', // text-muted
-                tabBarShowLabel: true,
-                tabBarLabelStyle: {
-                    fontSize: 10,
-                    fontWeight: '600',
-                    letterSpacing: 0.5,
-                    marginTop: 4,
-                },
+                tabBarHideOnKeyboard: true, // Optional: hide on keyboard
             }}
         >
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Home',
-                    tabBarIcon: ({ color, focused }) => (
-                        <MaterialCommunityIcons
-                            name="home"
-                            size={24}
-                            color={color}
-                            style={{
-                                shadowColor: focused ? '#2DD4BF' : 'transparent',
-                                shadowOffset: { width: 0, height: 0 },
-                                shadowOpacity: 0.5,
-                                shadowRadius: 8,
-                            }}
-                        />
-                    ),
                 }}
             />
             <Tab.Screen
                 name="Stats"
                 component={InsightsScreen}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Stats',
-                    tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="chart-bar" size={24} color={color} />
-                    ),
                 }}
             />
             <Tab.Screen
                 name="Scan"
                 component={AddScreen}
                 options={{
-                    tabBarLabel: 'Add',
-                    tabBarIcon: () => (
-                        <View style={{
-                            position: 'absolute',
-                            top: -40,
-                            width: 64,
-                            height: 64,
-                            borderRadius: 16,
-                            backgroundColor: '#0D9488', // primary color
-                            shadowColor: '#0D9488',
-                            shadowOffset: { width: 0, height: 0 },
-                            shadowOpacity: 0.4,
-                            shadowRadius: 20,
-                            elevation: 8,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderWidth: 1,
-                            borderColor: 'rgba(255, 255, 255, 0.2)',
-                        }}>
-                            <MaterialCommunityIcons name="plus" size={36} color="#FFFFFF" />
-                        </View>
-                    ),
-                    tabBarLabelStyle: {
-                        fontSize: 10,
-                        fontWeight: 'bold',
-                        letterSpacing: 1,
-                        textTransform: 'uppercase',
-                        color: '#2DD4BF',
-                        marginTop: 20, // Extra margin because icon is elevated
-                    },
+                    headerShown: false,
+                    tabBarLabel: 'Post', // Label for the middle button if needed
                 }}
             />
             <Tab.Screen
                 name="Wallet"
                 component={GroupsScreen}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Wallet',
-                    tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="wallet" size={24} color={color} />
-                    ),
                 }}
             />
             <Tab.Screen
                 name="Profile"
                 component={ProfileScreen}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Profile',
-                    tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="account" size={24} color={color} />
-                    ),
                 }}
             />
         </Tab.Navigator>
