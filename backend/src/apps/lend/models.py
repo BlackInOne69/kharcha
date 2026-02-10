@@ -5,8 +5,10 @@ from src.apps.auth.models import User
 class Transaction(models.Model):
  
     LEND = 'L'
+    BORROW = 'B'
     TYPE_CHOICES = [
         (LEND, 'Lend'),
+        (BORROW, 'Borrow'),
     ]
 
     PENDING = 'P'

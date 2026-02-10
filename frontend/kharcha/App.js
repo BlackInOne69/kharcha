@@ -18,7 +18,9 @@ import GroupExpenseScreen from './src/screens/GroupExpenseScreen';
 import GroupsScreen from './src/screens/GroupsScreen';
 import HistoryScreen from './src/screens/HistoryScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import WalletScreen from './src/screens/WalletScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import LendBorrowScreen from './src/screens/LendBorrowScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import SymbolIcon from './src/components/icons/SymbolIcon';
@@ -73,7 +75,7 @@ function MainTabs() {
             />
             <Tab.Screen
                 name="Wallet"
-                component={GroupsScreen}
+                component={WalletScreen}
                 options={{
                     headerShown: false,
                     tabBarLabel: 'Wallet',
@@ -127,6 +129,7 @@ function AppNavigation() {
                         <Stack.Screen name="ReviewExpense" component={ReviewExpenseScreen} />
                         <Stack.Screen name="ExpenseDetail" component={ExpenseDetailScreen} />
                         <Stack.Screen name="History" component={HistoryScreen} />
+                        <Stack.Screen name="LendBorrow" component={LendBorrowScreen} />
                         <Stack.Screen name="PrivacyPolicy" component={PrivacyScreen} />
                     </>
                 ) : (

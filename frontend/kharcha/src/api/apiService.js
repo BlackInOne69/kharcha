@@ -126,3 +126,112 @@ export const updateBudget = async (id, budgetData) => {
 
 // Note: Login, Logout, Register are handled directly in LoginScreen/AuthContext via raw fetch,
 // as they often don't need the authenticatedFetch helper before a token exists.
+
+
+// --- LEND / BORROW API ---
+
+// GET /lend/
+export const getTransactions = async () => {
+    return authenticatedFetch('/lend/', { method: 'GET' });
+};
+
+// POST /lend/
+export const createTransaction = async (transactionData) => {
+    return authenticatedFetch('/lend/', {
+        method: 'POST',
+        body: JSON.stringify(transactionData),
+    });
+};
+
+// GET /lend/{id}/
+export const getTransactionDetail = async (id) => {
+    return authenticatedFetch(`/lend/${id}/`, { method: 'GET' });
+};
+
+// PATCH /lend/{id}/verify/
+export const verifyTransaction = async (id) => {
+    return authenticatedFetch(`/lend/${id}/verify/`, { method: 'PATCH' });
+};
+
+// PATCH /lend/{id}/paid/
+export const markTransactionPaid = async (id) => {
+    return authenticatedFetch(`/lend/${id}/paid/`, { method: 'PATCH' });
+};
+
+// DELETE /lend/{id}/
+export const deleteTransaction = async (id) => {
+    return authenticatedFetch(`/lend/${id}/`, { method: 'DELETE' });
+};
+
+
+// --- WALLET API ---
+
+// GET /income/wallets/
+export const getWallets = async () => {
+    return authenticatedFetch('/income/wallets/', { method: 'GET' });
+};
+
+// POST /income/wallets/
+export const createWallet = async (walletData) => {
+    return authenticatedFetch('/income/wallets/', {
+        method: 'POST',
+        body: JSON.stringify(walletData),
+    });
+};
+
+// PATCH /income/wallets/{id}/
+export const updateWallet = async (id, walletData) => {
+    return authenticatedFetch(`/income/wallets/${id}/`, {
+        method: 'PATCH',
+        body: JSON.stringify(walletData),
+    });
+};
+
+// DELETE /income/wallets/{id}/
+export const deleteWallet = async (id) => {
+    return authenticatedFetch(`/income/wallets/${id}/`, { method: 'DELETE' });
+};
+
+// Helper to Add Funds (Creates an Income record linked to wallet)
+// POST /income/
+export const addFunds = async (amount, walletId, description) => {
+    // We need a category for Income. Ideally 'Salary' or 'Transfer' or 'Deposit'.
+    // For now, we might need to fetch categories first or just use a default specific ID if known,
+    // but better to let backend handle default or user select category.
+    // Assuming user selects category or we just pass amount/wallet and let backend/frontend logic generic it.
+
+    // Actually, to keep it simple, we will reuse createIncome but wrapping it here for clarity.
+    // We need to pass category_id. The UI should probably ask for it or we pick a default 'Income' category.
+    // For this 'Add Fund' quick action, maybe we just pick the first category available or 'Deposit'.
+
+    return authenticatedFetch('/income/', {
+        method: 'POST',
+        body: JSON.stringify({
+            amount,
+            wallet_id: walletId,
+            description: description || 'Added funds',
+            // category_id is required by serializer. We need to handle this in UI.
+        }),
+    });
+};
+
+// GET /income/categories/ (to help with addFunds)
+export const getIncomeCategories = async () => {
+    return authenticatedFetch('/income/categories/', { method: 'GET' });
+};
+
+// POST /income/categories/
+export const createIncomeCategory = async (categoryData) => {
+    return authenticatedFetch('/income/categories/', {
+        method: 'POST',
+        body: JSON.stringify(categoryData),
+    });
+};
+
+// POST /income/ (Generic create income)
+export const createIncome = async (incomeData) => {
+    return authenticatedFetch('/income/', {
+        method: 'POST',
+        body: JSON.stringify(incomeData),
+    });
+};

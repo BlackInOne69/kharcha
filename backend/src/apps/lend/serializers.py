@@ -4,8 +4,9 @@ from .models import Transaction
 
 class TransactionSerializer(serializers.ModelSerializer):
     # Use a PrimaryKeyRelatedField to explicitly handle the user ID as the participant.
-    participant = serializers.PrimaryKeyRelatedField(
+    participant = serializers.SlugRelatedField(
         queryset=User.objects.all(),
+        slug_field='username',
         required=True
     )
     # Add a read-only field to display the participant's username
@@ -31,7 +32,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             'verified_by_participant',
             'is_verified'
         ]
-        read_only_fields = ['initiator', 'transaction_type', 'participant_username']
+        read_only_fields = ['initiator', 'participant_username']
 
     def validate(self, data):
         # Ensure the `verified_by_participant` field is not set on creation.
@@ -50,10 +51,12 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-        Set the transaction initiator and type based on the current user from the request context.
+        Set the transaction initiator based on the current user.
         """
         validated_data['initiator'] = self.context['request'].user
-        validated_data['transaction_type'] = 'L'
+        if 'transaction_type' not in validated_data:
+             validated_data['transaction_type'] = 'L'
+             
         return super().create(validated_data)
 
 
