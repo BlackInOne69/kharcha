@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts are loaded via expo-font in App.js for native compatibility */
+
+/* Web styles (if applicable) matching the dark theme */
+body {
+	background: #18181B;
+	/* background-dark */
+	color: #F4F4F5;
+	/* text-main */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,42 @@
+from django.urls import path
+from .views import (
+    ExpenseListCreateView,
+    ExpenseRetrieveUpdateDestroyView,
+    CategoryListCreateView,
+    FinancialSummaryView,
+    RecentTransactionsView,
+    MonthlyAnalyticsView,
+    GroupListCreate,
+    GroupDetail,
+    ExpenseShareList,
+    ExpenseShareDetail,
+    SettlementCreate
+)
+# from .view1 import ExpenseExportView
+
+urlpatterns = [
+    # Expense and Category URLs
+    path('', ExpenseListCreateView.as_view(), name='expense-list-create'),
+    path('expenses', ExpenseListCreateView.as_view(), name='expense-list-create-no-slash'),
+    path('expenses/', ExpenseListCreateView.as_view(), name='expense-list-create-v2'),
+    path('<int:pk>/', ExpenseRetrieveUpdateDestroyView.as_view(), name='expense-detail'),
+    path('expenses/<int:pk>', ExpenseRetrieveUpdateDestroyView.as_view(), name='expense-detail-no-slash'),
+    path('expenses/<int:pk>/', ExpenseRetrieveUpdateDestroyView.as_view(), name='expense-detail-v2'),
+    path('categories/', CategoryListCreateView.as_view(), name='category-list-create'),
+
+    # Group URLs
+    path('groups/', GroupListCreate.as_view(), name='group-list-create'),
+    path('groups/<int:pk>/', GroupDetail.as_view(), name='group-detail'),
+
+    # Expense Share and Settlement URLs
+    path('expenseshares/', ExpenseShareList.as_view(), name='expenseshare-list'),
+    path('expenseshares/<int:pk>/', ExpenseShareDetail.as_view(), name='expenseshare-detail'),
+    path('settlements/', SettlementCreate.as_view(), name='settlement-create'),
+
+    # Reporting URLs
+    path('report/', FinancialSummaryView.as_view(), name='financial-summary'),
+    path('analytics/monthly/', MonthlyAnalyticsView.as_view(), name='monthly-analytics'),
+    path('reports/transactions/', RecentTransactionsView.as_view(), name='recent-transactions'),
+
+    # path('export/', ExpenseExportView.as_view(), name='expense-export'),  # Try this path
+]
