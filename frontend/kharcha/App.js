@@ -140,6 +140,8 @@ function AppNavigation() {
     );
 }
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 // The main App component wraps everything in providers
 export default function App() {
     const [fontsLoaded, fontError] = useFonts({
@@ -164,10 +166,12 @@ export default function App() {
         // CHANGE: Swapped provider order for better dependency management.
         // It's best practice for providers that depend on others (Theme -> Auth)
         // to be nested inside the ones they depend on.
-        <AuthProvider>
-            <ThemeProvider>
-                <AppNavigation />
-            </ThemeProvider>
-        </AuthProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <AuthProvider>
+                <ThemeProvider>
+                    <AppNavigation />
+                </ThemeProvider>
+            </AuthProvider>
+        </GestureHandlerRootView>
     );
 }
